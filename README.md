@@ -10,7 +10,7 @@
   <a href="https://ideogram.ai/blog/ideogram-4.0/" target="_blank" rel="noopener noreferrer"><img src="https://img.shields.io/badge/Blog-Post-orange" alt="Blog Post"></a>
   <a href="https://github.com/ideogram-oss/ideogram4" target="_blank" rel="noopener noreferrer"><img src="https://img.shields.io/badge/Code-GitHub-181717?logo=github" alt="Code"></a>
   <a href="https://huggingface.co/collections/ideogram-ai/ideogram-4" target="_blank" rel="noopener noreferrer"><img src="https://img.shields.io/badge/Model-HuggingFace-blue?logo=huggingface" alt="Model"></a>
-  <a href="https://developer.ideogram.ai/" target="_blank" rel="noopener noreferrer"><img src="https://img.shields.io/badge/API-developer.ideogram.ai-purple" alt="API"></a>
+  <a href="https://developer.ideogram.ai" target="_blank" rel="noopener noreferrer"><img src="https://img.shields.io/badge/API-developer.ideogram.ai-purple" alt="API"></a>
   <a href="https://ideogram.ai/" target="_blank" rel="noopener noreferrer"><img src="https://img.shields.io/badge/Official%20Site-ideogram.ai-ff69b4" alt="Official Site"></a>
 </p>
 
@@ -179,7 +179,7 @@ The plain `--prompt` is rewritten into the structured JSON caption the model
 expects by a "magic prompt" LLM. By default this uses Ideogram's hosted
 magic-prompt API, which is **free** and does the expansion server-side (no local
 model or system prompt needed). It reads `IDEOGRAM_API_KEY` — get a key at
-https://developer.ideogram.ai/:
+https://ideogram.ai/platform:
 
 ```bash
 python run_inference.py \
@@ -263,9 +263,9 @@ how the pipeline components fit together, see
 
 ## Prompting Guide
 
-Ideogram 4 is trained exclusively on **structured JSON captions**. While
-plain-text prompts work, you will get the best results by providing a JSON
-object that follows our caption schema.
+Ideogram 4 is trained exclusively on **structured JSON captions**.
+You must provide a JSON object that follows our caption schema. You can use
+an LLM to turn a natural language prompt into a JSON object.
 
 
 Key points:
@@ -280,12 +280,11 @@ Key points:
   phone wallpapers, social media formats, etc.
 - **Bounding-box layout** — specify `bbox` coordinates in the prompt to
   explicitly place subjects, text elements, and background regions.
-- **Compositional control** — use `compositional_deconstruction` with bounding
+- **Compositional control** — use `compositional_deconstruction` with optional bounding
   boxes and per-element descriptions for precise spatial layout.
 
 
-**Why JSON-only training?** We train exclusively on JSON so that training
-and inference share a single, common prompt format. The training captions themselves are deliberately
+**Why JSON-only training?** The training captions themselves are deliberately
 **extremely descriptive**: each JSON exhaustively describes everything in
 the image to maximize training efficiency. The more
 text-to-image relationships each caption pins down, the more grounded
@@ -294,8 +293,7 @@ having to infer those relationships across many sparsely-captioned samples.
 
 **Why JSON at inference time?** Because the model was trained on captions
 that name every object explicitly, the most reliable way to get every
-requested object rendered is to mirror that pattern. Plain-text prompts still work, but
-won't perform as well since the model was only trained on structured JSON captions.
+requested object rendered is to mirror that pattern.
 
 **Don't want to write JSON by hand?** That's what *magic prompt* is for: it uses
 an LLM to expand a plain-text prompt into a full structured caption before

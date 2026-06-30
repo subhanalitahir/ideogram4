@@ -4,23 +4,27 @@
 prompt ─► Qwen3-VL-8B-Instruct (extract hidden states from layers (0,3,…,33,35) → concat)
             │   
             ▼
-    ┌──────────────────────────────────────────────────┐
-    │    Ideogram4Transformer                         │  
+    ┌─────────────────────────────────────────────────┐
+    │    Ideogram4Transformer                         │
     │  • 34 × Ideogram4TransformerBlock               │
     │      – Ideogram4Attention (QK-RMSNorm, MRoPE)   │
     │      – Ideogram4MLP (SwiGLU)                    │
-    │      – adaln scale/gate from t-embedding         │
+    │      – adaln scale/gate from t-embedding        │
     │  • Ideogram4FinalLayer                          │
-    └──────────────────────────────────────────────────┘
-            │  velocity prediction
-            ▼
-    Euler flow-matching sampler with asymmetric CFG
-            │  denoised image latents
-            ▼
-    VAE decode
+    └─────────────────────────────────────────────────┘
+            │
+            │ velocity prediction
             │
             ▼
-            PIL.Image
+    Euler flow-matching sampler with asymmetric CFG
+            │
+            │ denoised image latents
+            │
+            ▼
+       VAE decode
+            │
+            ▼
+        PIL.Image
 ```
 
 The transformer is a single-stream DiT: text tokens (Qwen3-VL hidden states from

@@ -12,7 +12,7 @@ components:
 
 ```
  ┌─────────────┐   ┌──────────────────────┐   ┌──────────────┐   ┌───────────┐
- │  Qwen3-VL   │   │  Ideogram4          │   │  KL VAE      │   │           │
+ │  Qwen3-VL   │   │  Ideogram4           │   │  KL VAE      │   │           │
  │  Text       ├──►│  Transformer (DiT)   ├──►│  VAE         ├──►│  Image    │
  │  Encoder    │   │  + Euler Sampler     │   │  Decoder     │   │           │
  └─────────────┘   └──────────────────────┘   └──────────────┘   └───────────┘
